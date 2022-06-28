@@ -12,8 +12,13 @@ const learningPathSchema = new mongoose.Schema({
     description: String,
     abstracts: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Abstracts'
-    }]
+        ref: 'Abstract'
+    }],
+
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 learningPathSchema.set('toJSON', {

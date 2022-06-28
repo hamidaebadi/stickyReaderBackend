@@ -17,6 +17,13 @@ const userSchema = new mongoose.Schema({
     },
     passwordHash: String,
 
+    paths: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'LearningPath'
+        }
+    ]
+
 })
 
 userSchema.set('toJSON', {

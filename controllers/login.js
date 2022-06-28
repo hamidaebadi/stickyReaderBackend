@@ -6,7 +6,7 @@ const loginRouter = require('express').Router()
 
 loginRouter.post('/', async(req, res) => {
     const {email, password} = req.body
-    const user = await User.findOne({email: email})
+    const user = await User.findOne({email: email}).populate('paths')
     const passwordCorrect = user === null
         ? false
         : await bcrypt.compare(password, user.passwordHash)
@@ -22,9 +22,12 @@ loginRouter.post('/', async(req, res) => {
         id: user._id
     }
 
-    const token = jwt.sign(userForToken, config.SECRET)
+    const token = jwt.sign(userForToken,
+         config.SECRET,
+         {expiresIn: 60*60}
+         )
     res.status(200)
-    .send({token, email: user.email, firstName: user.firstName})
+    .send({token, email: user.email, firstName: user.firstName, paths: user.paths})
 })
 
 module.exports = loginRouter
