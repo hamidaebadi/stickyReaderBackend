@@ -10,9 +10,9 @@ const learningPathSchema = new mongoose.Schema({
         requried: true
     },
     description: String,
-    abstracts: [{
+    stickies: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Abstract'
+        ref: 'Sticky'
     }],
 
     author: {

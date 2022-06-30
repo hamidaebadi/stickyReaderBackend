@@ -16,13 +16,25 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     passwordHash: String,
-
+    about: String,
+    likedStickies: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sticky'
+    }],
     paths: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'LearningPath'
         }
-    ]
+    ],
+    followedBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 
 })
 
