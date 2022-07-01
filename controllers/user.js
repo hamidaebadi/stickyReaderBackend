@@ -8,6 +8,14 @@ userRouter.post('/', async(req, res) => {
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
+
+    //check if user already exists
+    const existingUser = await User.findOne({ email: body.email })
+    if(existingUser){
+        return res.status(400).json({
+            error: "User with this email address already exists!"
+        })
+    }
     const user = new User({
         firstName: body.firstName,
         lastName: body.lastName,
@@ -15,9 +23,9 @@ userRouter.post('/', async(req, res) => {
         passwordHash,
     })
 
-    user.save()
-    .then(returnedObject => res.json(returnedObject))
-    .catch(error => res.json({error: error.message}))
+    const savedUser = await user.save()
+    res.json(savedUser)
+    
 })
 
 module.exports = userRouter
