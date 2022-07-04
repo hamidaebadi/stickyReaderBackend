@@ -5,6 +5,7 @@ const app = express()
 const loginRouter = require('./controllers/login')
 const userRouter = require('./controllers/user')
 const learningPathRouter = require('./controllers/learningPath')
+const stickyRouter = require('./controllers/sticky')
 const mongoose = require('mongoose')
 
 mongoose.connect(config.MONGODB_URI)
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use('/api/login', loginRouter)
 app.use('/api/user', userRouter)
 app.use('/api/paths', learningPathRouter)
+app.use('/api/stickies', stickyRouter)
 
 
 module.exports = app

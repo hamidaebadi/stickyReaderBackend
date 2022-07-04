@@ -22,6 +22,10 @@ const stickySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'LearningPath'
     },
+    publishedDate: {
+        type: Date,
+        required: true
+    }
 
 })
 

@@ -13,7 +13,7 @@ const getTokenFrom = request => {
 }
 
 pathRouter.get('/', async(req, res) => {
-    const allPaths = await LearningPath.find()
+    const allPaths = await LearningPath.find().populate('author')
     res.json(allPaths) 
 })
 

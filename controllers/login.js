@@ -27,7 +27,14 @@ loginRouter.post('/', async(req, res) => {
          {expiresIn: 60*60}
          )
     res.status(200)
-    .send({token, email: user.email, firstName: user.firstName, lastName: user.lastName, paths: user.paths})
+    .send({token, 
+        email: user.email, 
+        firstName: user.firstName, 
+        lastName: user.lastName, 
+        paths: user.paths, 
+        id: user._id,
+        bio: user.about
+    })
 })
 
 module.exports = loginRouter
