@@ -21,12 +21,6 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Sticky'
     }],
-    paths: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'LearningPath'
-        }
-    ],
     followedBy: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -34,6 +28,10 @@ const userSchema = new mongoose.Schema({
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    }],
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sticky'
     }]
 
 })

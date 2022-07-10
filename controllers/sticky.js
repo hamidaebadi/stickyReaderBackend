@@ -26,4 +26,18 @@ stickyRouter.post('/', async(req, res) => {
     
 })
 
+
+stickyRouter.get('/:id', async(req, res) => {
+    const userId = req.params.id
+    const user = await User.findById(userId)
+    const stickies = await Sticky.find({$and: [{$or: [{author: userId}, {author: {$in: user.following}}]}]})
+    .populate('author')
+    .populate('learningPath')
+    
+    if (!stickies){
+        res.status(400).json({error: "Undefined User"})
+    }
+    res.json(stickies)
+})
+
 module.exports = stickyRouter

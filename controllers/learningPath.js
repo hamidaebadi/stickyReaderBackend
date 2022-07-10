@@ -1,5 +1,6 @@
 const LearningPath = require('../models/learningPaths')
 const User = require('../models/users')
+const Sticky = require('../models/stickies')
 const pathRouter = require('express').Router()
 const jwt = require('jsonwebtoken')
 const config = require('../utils/config')
@@ -35,10 +36,27 @@ pathRouter.post('/', async(req, res) => {
     })
 
     const savedPath = await path.save()
-    user.paths = user.paths.concat(savedPath._id)
-    await user.save()
-    
+
     res.json(savedPath)
+})
+
+
+//deleting path
+pathRouter.delete('/:id', async(req, res) => {
+    const pathId = req.params.id
+
+    try{
+        //remove stickies related to path
+        await Sticky.deleteMany({learningPath: pathId})
+        //delete path
+        await LearningPath.findByIdAndRemove(pathId)
+        res.status(204).end()
+    }catch(error){
+        res.status(500).json({error: "server error!"})
+    }
+
+    
+    
 })
 
 module.exports = pathRouter

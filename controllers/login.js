@@ -33,7 +33,9 @@ loginRouter.post('/', async(req, res) => {
         lastName: user.lastName, 
         paths: user.paths, 
         id: user._id,
-        bio: user.about
+        bio: user.about,
+        followedBy: user.followedBy,
+        following: user.following
     })
 })
 
